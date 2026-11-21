@@ -1,0 +1,14 @@
+{
+  "name": "pe-visual-kit-excalidraw",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx src/generate.ts",
+    "examples": "tsx src/examples.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.10.0"
+  }
+}
