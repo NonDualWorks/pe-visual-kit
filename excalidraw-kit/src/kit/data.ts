@@ -42,7 +42,7 @@ export function taggedRows(s: Style) {
 export function messageLog(s: Style, name: string, ephemeral = false) {
   const st = { strokeColor: C.neutral.stroke, strokeStyle: ephemeral ? "dashed" : "solid" };
   const box = rect(0, 0, Math.max(200, 120 + name.length * 9), 44, s, { ...st, backgroundColor: C.neutral.light, roundness: { type: 3 } });
-  const slots = [0, 1, 2, 3].map((i) => rect(12 + i * 22, 10, 16, 24, s, { ...st, strokeWidth: 1, backgroundColor: "#ffffff", roundness: null }));
+  const slots = [0, 1, 2, 3].map((i) => rect(12 + i * 22, 10, 16, 24, s, { strokeColor: C.neutral.stroke, strokeWidth: 1, backgroundColor: "#ffffff", roundness: null }));
   return group([box, ...slots, text(name, 108, 13, 15, s, { fontFamily: s.monoFamily })]);
 }
 
@@ -53,4 +53,18 @@ export function message(s: Style, tag?: string) {
   if (!tag) return group([env, flap]);
   const t = rect(40, -14, tag.length * 9 + 16, 24, s, { strokeColor: C.app.stroke, backgroundColor: C.app.bg, strokeWidth: 1 });
   return group([env, flap, t, label(t, tag, 13, s)]);
+}
+
+// SNS topic: one shared topic, fans out to queues.
+export function snsTopic(s: Style, name = "orders") {
+  const e = base("ellipse", 0, 0, 170, 70, s, { strokeColor: C.neutral.stroke, backgroundColor: "#fff0f6" });
+  return [e, label(e, `SNS topic\n${name}`, 16, s)];
+}
+
+// SQS queue with its filter policy underneath. Dashed = per-PR (ephemeral).
+export function sqsQueue(s: Style, name: string, filter: string, ephemeral = false) {
+  const q = messageLog(s, name, ephemeral);
+  const f = rect(0, 52, Math.max(200, filter.length * 8.4 + 24), 28, s, {
+    strokeColor: ephemeral ? C.app.stroke : C.neutral.stroke, backgroundColor: "#ffffff", strokeWidth: 1, strokeStyle: "dotted" });
+  return group([...q, f, label(f, filter, 13, s, "center", { fontFamily: s.monoFamily })]);
 }

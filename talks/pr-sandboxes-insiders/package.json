@@ -1,0 +1,14 @@
+{
+  "name": "pr-sandboxes-insiders",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build --base ./",
+    "export": "slidev export"
+  },
+  "devDependencies": {
+    "@slidev/cli": "53.0.0",
+    "@slidev/theme-default": "0.25.0"
+  }
+}

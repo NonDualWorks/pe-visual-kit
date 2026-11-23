@@ -16,3 +16,17 @@ export function thresholdBar(s: Style) {
     return [b, label(b, t, 15, s)];
   }));
 }
+
+// Sandbox infra: what the pipeline creates for one PR. Routing rule always; DB and queues only when the change needs them.
+export function sandboxInfra(s: Style, pr = "pr-482", db = true, queues = true) {
+  const box = rect(0, 0, 270, 130, s, { strokeColor: C.neutral.stroke, backgroundColor: "#ffffff", strokeStyle: "dashed" });
+  const row = (y: number, on: boolean, t: string) => text(`${on ? "☑" : "☐"} ${t}`, 16, y, 16, s, { strokeColor: on ? "#1e1e1e" : C.muted });
+  return group([box, text(`sandbox infra · ${pr}`, 16, 12, 17, s, { strokeColor: C.neutral.stroke }),
+    row(46, true, "routing rule  (always)"), row(72, db, "PR DB  (if DDL)"), row(98, queues, "queues  (if events)")]);
+}
+
+// TTL: backup cleanup timer on anything ephemeral.
+export function ttl(s: Style, str = "TTL 48h after last push") {
+  const b = rect(0, 0, str.length * 8.4 + 44, 32, s, { strokeColor: C.pending.stroke, backgroundColor: "#fff4e6", strokeWidth: 1.5, strokeStyle: "dashed" });
+  return [b, label(b, "⏳ " + str, 14, s)];
+}

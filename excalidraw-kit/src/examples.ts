@@ -4,6 +4,7 @@
 
 import { mkdirSync, writeFileSync } from "node:fs";
 import * as k from "./kit/index.js";
+import { INSIDERS } from "./insiders.js";
 
 type Scene = (s: k.Style, put: Put, link: Link) => void;
 type Put = (els: k.El[], x: number, y: number, opts?: { w?: number; h?: number; label?: string }) => void;
@@ -245,7 +246,9 @@ function prSandbox(s: k.Style, put: Put, link: Link, ddl: boolean) {
 }
 
 mkdirSync("dist/examples", { recursive: true });
-for (const [name, scene] of Object.entries(SCENES)) {
+const ALL: Record<string, Scene> = { ...SCENES, ...INSIDERS };
+const only = process.env.ONLY; // e.g. ONLY=ins- to build just the insiders scenes
+for (const [name, scene] of Object.entries(ALL).filter(([n]) => !only || n.startsWith(only))) {
   for (const s of k.STYLES) {
     const elements: k.El[] = [];
     // put: place a component at (x, y); optionally resize its box and rename its main (first) label

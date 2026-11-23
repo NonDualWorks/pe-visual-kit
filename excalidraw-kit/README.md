@@ -32,18 +32,24 @@ Tips:
 | Ephemeral (sandbox, Aurora Serverless, overlay) | Dashed outline |
 | Flow | Solid = promote/deploy, dashed = sync (amber forced, green pull), dotted = back-merge |
 
-## Components (42), by category
+## Components (86), by category
 
-Item names start with their category, so they stay grouped in the Library panel.
+Item names are "Category · Subcategory · Name", so they stay grouped in the Library panel.
 
 - **Places:** AWS Region · EKS cluster · Namespace (baseline, sandbox) · Env card (feature app `f03`, feature platform `p02`, hotfix `hf1`, CI, pre-prod, prod)
-- **Workloads:** Platform / App service · + envoy · service stacks
-- **Data:** RDS Aurora · Aurora Serverless (ephemeral)
-- **Network:** Mesh boundary · istiod control plane
+- **Workloads:** Platform service `p01` · App service `a04` · PR version `a04′` (dashed) · + envoy · service stacks
+- **Data · Relational:** Baseline DB (RDS Aurora) · PR DB (Aurora Serverless) · Schema · Schema per PR · Tagged rows
+- **Data · Messages:** Topic · Topic per PR · Message (plain, tagged) · SNS topic · SQS queue (baseline, PR) with filter policy
+- **Network:** Mesh boundary · istiod control plane · Ingress gateway · Routing rule (PR sandbox, service candidate)
 - **Artifacts:** Manifest (platform, app, overlay) · Release (tagged) · Compose (+) · Resolve · pin · tag
-- **Flow:** Promote · Sync (forced) · Sync (pull) · Back-merge · Deploy · CD system
-- **Control:** Gate (automated / human × pending / passed / blocked) · Threshold bar
-- **Annotations:** Badge (neutral, ok, warn)
+- **Flow:** Promote · Sync (forced) · Sync (pull) · Back-merge · Deploy · Request (plain, tagged) · git push · CD system
+- **Git:** Main line · Feature branch · Commit · Merge commit · Tag · Dev laptop · Pull request
+- **Control:** Gate (automated / human × pending / passed / blocked) · Threshold bar · Sandbox infra (full, routing only) · TTL
+- **Testing:** Test suite hexagon (T01 contract, T02 api, E01 e2e outside the cluster, dashed) · Result (passed, failed, running)
+- **CI · Concourse:** Job (pending, started, succeeded, failed) · Resource · Rerun (+) · PR pipeline (passing, test failed, deploy failed)
+- **Annotations:** Badge (neutral, ok, warn) · Step number
+
+Names on pictures: `p01…` platform, `a01…` app, `a04′` = a04 as changed in a PR, `T01…` suites, `E01…` e2e suites.
 
 ## Example scenes
 
@@ -53,6 +59,9 @@ In `dist/examples/`, each in sketchy and clean. They're built only from kit comp
 - `sync-today-vs-proposed`: forced sync vs pull-based sync with guardrails
 - `guardrails-and-hotfix`: gates to CI and prod; hotfix straight to pre-prod, back-merge to master
 - `manifest-composition`: platform + app manifests → resolve · pin · tag → release → CD → feature env
+- `git-*`: the git metaphor for today's environments
+- `data-*`, `pr-sandbox-*`: Data Isolation Strategy and the two PR sandbox variants
+- `ins-*` (21 scenes, in `src/insiders.ts`): the insiders deck: end state, life of a PR step by step, tiers, Tier 2/3, transition, linked PRs, Concourse harness, PR DBs by domain, service candidate. Build just these with `ONLY=ins- npm run examples`.
 
 ![example scenes](example.png)
 

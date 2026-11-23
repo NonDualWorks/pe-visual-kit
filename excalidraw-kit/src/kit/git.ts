@@ -34,3 +34,10 @@ export function laptop(s: Style, branchName = "feat-482") {
   const baseBar = rect(-16, 110, 232, 14, s, { strokeColor: "#343a40", backgroundColor: C.neutral.bg, roundness: null });
   return group([screen, baseBar, text("dev laptop", 14, 12, 16, s, { strokeColor: C.muted }), text("branch: " + branchName, 14, 44, 16, s, { fontFamily: s.monoFamily, strokeColor: C.app.stroke }), text("seconds to rebase", 14, 76, 14, s, { strokeColor: C.passed.stroke })]);
 }
+
+// Pull request card: number, service it changes, branch.
+export function pullRequest(s: Style, n = "482", svc = "a04", br = "feat-482") {
+  const box = rect(0, 0, 220, 96, s, { strokeColor: C.app.stroke, backgroundColor: "#ffffff" });
+  return group([box, text(`⑂ PR #${n}`, 14, 10, 20, s, { strokeColor: C.app.stroke }),
+    text(`changes: ${svc}`, 14, 42, 15, s), text(`branch: ${br}`, 14, 66, 14, s, { fontFamily: s.monoFamily, strokeColor: C.muted })]);
+}

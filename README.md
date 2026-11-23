@@ -4,8 +4,8 @@ Visual language for platform engineering and software delivery: static diagrams 
 
 | Folder | Status | What |
 |---|---|---|
-| `excalidraw-kit/` | v0.1 | Excalidraw component libraries (sketchy + clean) and their generator |
-| `talks/` | started | Slidev decks; `env-strategy-2026/` is the environments pitch |
+| `excalidraw-kit/` | v0.2 | Excalidraw component libraries (sketchy + clean) and their generator |
+| `talks/` | started | Slidev decks; `env-strategy-2026/` is the full environments pitch, `pr-sandboxes-insiders/` the long-term design for insiders |
 | `animator/` | planned | GSAP toolkit for animated scenes |
 | `concepts/` | planned | Reference diagrams: topologies, glossary |
 
